@@ -1,7 +1,7 @@
 {
     "name": "amiirarsallan/laravel-cksource",
     "description": "CKEditor & CKFinder integrated for Laravel framework.",
-    "keywords": ["laravel", "ckeditor", "ckfinder", "laravel ckeditor", "laravel ckeditor & ckfinder", "laravel html editor"],
+    "keywords": ["laravel", "ckeditor", "ckfinder", "laravel ckeditor", "laravel ckeditor", "laravel ckfinder", "laravel html editor"],
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
