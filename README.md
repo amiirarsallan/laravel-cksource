@@ -6,6 +6,7 @@ for [Laravel](https://laravel.com/) 5.4+ framework.
 - [Installation](#installation)
 - [Updating](#updating)
 - [Usage](#usage)
+- [Configuration](#configuration)
 
 ## Installation
 ### Require package via composer
