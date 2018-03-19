@@ -3,9 +3,9 @@ This package provides two products of [CKSource](https://cksource.com/), called 
 WYSIWYG editors and CKFinder that creates a very easy, safe file upload and management trought the CKEditor and by itself,
 for [Laravel](https://laravel.com/) 5.4+ framework.
 
-- [Installation](https://github.com/amiirarsallan/laravel-ckeditor#installation)
-- [Updating](https://github.com/amiirarsallan/laravel-ckeditor#updating)
-- [Usage](https://github.com/amiirarsallan/laravel-ckeditor#usage)
+- [Installation](#installation)
+- [Updating](#updating)
+- [Usage](#usage)
 
 ## Installation
 ### Require package via composer
