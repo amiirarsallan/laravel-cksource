@@ -20,9 +20,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->publishes([
             __DIR__. '\assets\ckeditor' => public_path('vendor/amiirarsallan/laravel-cksource/src/assets/ckeditor'),
             __DIR__. '\assets\ckfinder' => public_path('vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder'),
-            __DIR__. '\files' => storage_path('files'),
+            __DIR__. '\files' => storage_path('app/public/files'),
         ],
-        'cksource');
+        'laravel-cksource');
 
         // Main Job
         Blade::directive('ckeditor', function( $expression ) {

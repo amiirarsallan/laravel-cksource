@@ -9,7 +9,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
 	
 	//Custom Fonts
-	config.contentsCss = '/ckeditor/fonts.css';
+	config.contentsCss = '/vendor/amiirarsallan/laravel-cksource/src/assets/ckeditor/fonts.css';
 	config.font_names = 'Poppins/Poppins;Raleway/Raleway;Roboto/Roboto;Source Sans Pro/Source Sans Pro;Titillium Web/Titillium+Web;SegoeUI/SegoeUI;Calibri/Calibri;نازنین/Nazanin;ایران سانس/IranSans;یکان/Yekan;' + config.font_names;
 
 	//CK Finder Set-up
