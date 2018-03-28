@@ -16,7 +16,6 @@ ini_set('display_errors', 0);
 // Development
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
-session_start();
 
 /*============================ General Settings =======================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html
@@ -27,7 +26,12 @@ $config = array();
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_authentication
 
 $config['authentication'] = function () {
-    return $_SESSION['ckfinder_authentication'];
+    $APP_KEY = "YOUR_APP_KEY";
+    $cookie_contents = json_decode( base64_decode( $_COOKIE['allowCkfinder'], true ));
+    $value = base64_decode( $cookie_contents->value );
+    $iv = base64_decode( $cookie_contents->iv );
+
+    return unserialize( openssl_decrypt($value, "AES-256-CBC", base64_decode($APP_KEY), OPENSSL_RAW_DATA, $iv));
 };
 
 /*============================ License Key ============================================*/
@@ -67,7 +71,7 @@ $config['images'] = array(
 $config['backends'][] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => $_SESSION['ckfinder_baseUrl'],//'/ckfinder/userfiles/',
+    'baseUrl'      => '/storage/files',
 //  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,

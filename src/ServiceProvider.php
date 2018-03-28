@@ -3,9 +3,9 @@
 namespace AmirArsalan\LaravelCKSource;
 
 use Auth;
-use Session;
 use Storage;
 use Blade;
+use Cookie;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -27,25 +27,49 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // Main Job
         Blade::directive('ckeditor', function( $expression ) {
 
-            list($name, $id, $dir) = explode(', ', $expression);
-
-            // Set baseURL options of CKFinder config.php
-            $dir = empty($dir) ? url("storage/files") : url("storage/files/".$dir);
-            Session::put('ckfinder_baseUrl', $dir);
+            $args = explode(', ', $expression);
+            $name = $args[0];
+            $id = $args[1];
+            $options = !empty ($args[2]) ? $args[2] : '';
 
             // Set authentication options of CKFinder config.php
             if (Auth::check()) {
-                Session::put('ckfinder_authentication', true);
+                Cookie::queue(Cookie::make('allowCkfinder', true));
                 //Return with CKFinder installed
                 $script = "
-                    echo '<script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>';
-                    echo '<script>CKFinder.setupCKEditor();CKEDITOR.replace(\'' . e({$id}) . '\')</script>';
-                ";
+                    echo '<script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>'; ";
+                
+                if (!empty($options)) {
+                    $script .= "
+                        echo '<script>
+                                    CKFinder.setupCKEditor();
+                                    CKEDITOR.replace(\'' . e({$id}) . '\', {' . e({$options}) . '});
+                              </script>';
+                    ";
+                }
+                else {
+                    $script .= "
+                        echo '<script>
+                                    CKFinder.setupCKEditor();
+                                    CKEDITOR.replace(\'' . e({$id}) . '\');
+                              </script>';
+                    ";
+                }
             }
             else {
-                Session::put('ckfinder_authentication', false);
+                if( Cookie::get('allowCkfinder') !== false) {
+                    cookie('allowCkfinder', false);
+                }
+                else {
+                    Cookie::queue(Cookie::make('allowCkfinder', false));
+                }
                 //Return without CKFinder
-                $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\');</script>';";
+                if (!empty($options)) {
+                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\', {' . e({$options}) . '});</script>';";
+                }
+                else {
+                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\');</script>';";    
+                }
             }
 
             return "<?php 
