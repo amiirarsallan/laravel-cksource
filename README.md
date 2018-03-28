@@ -18,6 +18,10 @@ Run this artisan command inside your main laravel project directory
 ```
 php artisan vendor:publish --tag=laravel-cksource
 ```
+### Note
+**By running this command you'll have a new directory named ```files``` inside your laravel project ```storage``` directory,
+this directory will used for CKFinder uploads path.**
+
 ### Configurating CKFinder
 Open CKFinder ```config.php``` file available in this path ```/public/vendor/amiirarsalan/laravel-cksource/src/assets/ckfinder/```
 in line 29
@@ -26,10 +30,6 @@ Replace **YOUR_APP_KEY** with your own application key without **base64:** flag
 $config['authentication'] = function () {
     $APP_KEY = "YOUR_APP_KEY";
 ```
-
-### Note
-**By running this command you'll have a new directory named ```files``` inside your laravel project ```storage``` directory,
-this directory will used for CKFinder uploads path.**
 
 ## Updating
 ### Update composer at first level
