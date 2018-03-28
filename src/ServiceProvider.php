@@ -43,7 +43,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                     $script .= "
                         echo '<script>
                                     CKFinder.setupCKEditor();
-                                    CKEDITOR.replace(\'' . e({$id}) . '\', {' . e({$options}) . '});
+                                    CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '});
                               </script>';
                     ";
                 }
@@ -65,7 +65,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 }
                 //Return without CKFinder
                 if (!empty($options)) {
-                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\', {' . e({$options}) . '});</script>';";
+                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '});</script>';";
                 }
                 else {
                     $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\');</script>';";    
