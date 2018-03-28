@@ -18,6 +18,14 @@ Run this artisan command inside your main laravel project directory
 ```
 php artisan vendor:publish --tag=laravel-cksource
 ```
+### Configurating CKFinder
+Open CKFinder ```config.php``` file available in this path ```/public/vendor/amiirarsalan/laravel-cksource/src/assets/ckfinder/```
+in line 29
+Replace **YOUR_APP_KEY** with your own application key without **base64:** flag
+```
+$config['authentication'] = function () {
+    $APP_KEY = "YOUR_APP_KEY";
+```
 
 ### Note
 **By running this command you'll have a new directory named ```files``` inside your laravel project ```storage``` directory,
@@ -36,12 +44,12 @@ php artisan vendor:publish --tag=laravel-cksource --force
 ## Usage
 Package generates new custom Laravel Blade syntax,
 ```
-@ckeditor( [arg1](textarea name), [arg2](textarea id), [arg3]{optional}(ckfinder dirctory name)  )
+@ckeditor( [arg1](textarea name), [arg2](textarea id), [arg3]{optional}(ckeditor custom configs)  )
 ```
 This syntax creates a new ```<textarea>``` HTML element in your view and its ```name``` and ```id``` attributes
 will populate trough first two arguments of ```@ckeditor``` syntax.
 
-3rd argument will be the CKFinder upload directory and its default value is ```files``` that publishes via provider by installation steps
+3rd argument will be the CKFinder custom configurations.
 
 **NOTE**
 CKFinder and browse server button of CKEditor will be available while ```Auth::check()``` return true result,
@@ -53,12 +61,7 @@ To disable CKFinder activation via Laravel Auth, just go trough this dir in your
 ```
 /public/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/
 ```
-and open config.php file inside this directory, then remove this code ```$_SESSION['ckfinder_authentication'];``` in line **30**
-```
-$config['authentication'] = function () {
-    return $_SESSION['ckfinder_authentication'];
-};
-```
+and open config.php file inside this directory, then remove the whole code ```$config['authentication']``` in line **28**
 and just write
 ```
 $config['authentication'] = function () {
