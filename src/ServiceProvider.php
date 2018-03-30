@@ -34,20 +34,23 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             // Set authentication options of CKFinder config.php
             if (Auth::check()) {
                 //Return with CKFinder installed
-                $script = "
-                    echo ' <script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>'; ";
+                $script = " echo ' <script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>'; ";
                 
-                $script .= !empty($options) ? 
-                    " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; "
-                    : 
-                    " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
+                if(!empty($options)) {
+                    $script .= " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; ";
+                } 
+                else {
+                    $script .= " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
+                }
             }
             else {
                 //Return without CKFinder
-                $script .= !empty($options) ? 
-                    " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; "
-                    : 
-                    " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
+                if(!empty($options)) {
+                    $script = " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; ";
+                } 
+                else {
+                    $script = " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
+                }
             }
 
             return "<?php 
