@@ -5,7 +5,6 @@ namespace AmirArsalan\LaravelCKSource;
 use Auth;
 use Storage;
 use Blade;
-use Cookie;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -34,42 +33,21 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
             // Set authentication options of CKFinder config.php
             if (Auth::check()) {
-                Cookie::queue(Cookie::make('allowCkfinder', true));
                 //Return with CKFinder installed
                 $script = "
-                    echo '<script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>'; ";
+                    echo ' <script type=\"text/javascript\" src=\"/vendor/amiirarsallan/laravel-cksource/src/assets/ckfinder/ckfinder.js\"></script>'; ";
                 
-                if (!empty($options)) {
-                    $script .= "
-                        echo '<script>
-                                    CKFinder.setupCKEditor();
-                                    CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '});
-                              </script>';
-                    ";
-                }
-                else {
-                    $script .= "
-                        echo '<script>
-                                    CKFinder.setupCKEditor();
-                                    CKEDITOR.replace(\'' . e({$id}) . '\');
-                              </script>';
-                    ";
-                }
+                $script .= !empty($options) ? 
+                    " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; "
+                    : 
+                    " echo '<script> CKFinder.setupCKEditor(); CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
             }
             else {
-                if( Cookie::get('allowCkfinder') !== false) {
-                    cookie('allowCkfinder', false);
-                }
-                else {
-                    Cookie::queue(Cookie::make('allowCkfinder', false));
-                }
                 //Return without CKFinder
-                if (!empty($options)) {
-                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '});</script>';";
-                }
-                else {
-                    $script = "echo '<script>CKEDITOR.replace(\'' . e({$id}) . '\');</script>';";    
-                }
+                $script .= !empty($options) ? 
+                    " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\', {' . {$options} . '}); </script>'; "
+                    : 
+                    " echo '<script> CKEDITOR.replace(\'' . e({$id}) . '\'); </script>'; ";
             }
 
             return "<?php 
