@@ -31,7 +31,8 @@ $config['authentication'] = function () {
     $APP_KEY = "YOUR_APP_KEY";
 ```
 Then, we have the most important part for authentication,
-**First - Set Cookie to authenticate user in login**
+
+1- **Set Cookie to authenticate user in login**
 In your user login process you have to redirect user after successful login attempt, so by that way you have to
 redirect with a cookie set, with command ```withCookie()``` and the cookie should be **allowCkfinder** and the value **true**,
 and the code snippet should be something like this
@@ -46,7 +47,7 @@ if (!auth()->attempt($credentials, request('remember'))) {
 //Redirect to panel
 return redirect()->route('dashboard')->withCookie(cookie()->forever('allowCkfinder', true));
 ```
-**Second - Unset Cookie while user logout**
+2- **Unset Cookie while user logout**
 To make the process works completely, you have to remove the cookie while user logout, and the snippet should be something like this
 ```
 //Log out the user
