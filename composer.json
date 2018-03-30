@@ -3,8 +3,7 @@
     "description": "CKEditor & CKFinder integrated for Laravel framework.",
     "keywords": ["laravel", "ckeditor", "ckfinder", "laravel ckeditor", "laravel ckeditor", "laravel ckfinder", "laravel html editor"],
     "license": "MIT",
-    "minimum-stability": "stable",
-    "prefer-stable": "true",
+    "minimum-stability": "dev",
     "require": {
         "illuminate/support": "^5.2"
     },
