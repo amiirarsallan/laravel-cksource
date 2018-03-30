@@ -6,7 +6,6 @@
     "minimum-stability": "stable",
     "prefer-stable": "true",
     "require": {
-        "laravel/framework": "^5.4",
         "illuminate/support": "^5.2"
     },
     "authors": [
