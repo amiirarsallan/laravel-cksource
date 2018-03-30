@@ -4,6 +4,7 @@
     "keywords": ["laravel", "ckeditor", "ckfinder", "laravel ckeditor", "laravel ckeditor", "laravel ckfinder", "laravel html editor"],
     "license": "MIT",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "illuminate/support": "^5.2"
     },
