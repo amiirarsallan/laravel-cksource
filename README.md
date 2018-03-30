@@ -25,10 +25,35 @@ this directory will used for CKFinder uploads path.**
 ### Configurating CKFinder
 Open CKFinder ```config.php``` file available in this path ```/public/vendor/amiirarsalan/laravel-cksource/src/assets/ckfinder/```
 in line 29
-Replace **YOUR_APP_KEY** with your own application key without **base64:** flag
+Replace **YOUR_APP_KEY** with your own application key stores in .env file of project, without **base64:** flag
 ```
 $config['authentication'] = function () {
     $APP_KEY = "YOUR_APP_KEY";
+```
+Then, we have the most important part for authentication,
+**First - Set Cookie to authenticate user in login**
+In your user login process you have to redirect user after successful login attempt, so by that way you have to
+redirect with a cookie set, with command ```withCookie()``` and the cookie should be **allowCkfinder** and the value **true**,
+and the code snippet should be something like this
+```
+//Attempt to login user
+if (!auth()->attempt($credentials, request('remember'))) {
+    return back()->withErrors([
+        'message' => 'Please check your credentials.'
+    ]);
+}
+
+//Redirect to panel
+return redirect()->route('dashboard')->withCookie(cookie()->forever('allowCkfinder', true));
+```
+**Second - Unset Cookie while user logout**
+To make the process works completely, you have to remove the cookie while user logout, and the snippet should be something like this
+```
+//Log out the user
+auth()->logout();
+
+//Redirect to index
+return redirect()->route('home')->withCookie(cookie()->forget('allowCkfinder'));
 ```
 
 ## Updating
