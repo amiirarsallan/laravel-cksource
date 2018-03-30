@@ -113,14 +113,19 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ```
 Save the config file and try re-open the Browse Server dialog from CKEditor,
-If the error show on screen display something like this,
+If the error shown on screen display something like this,
 
 **Fatal error: Interface 'CKSource\CKFinder\Request\Transformer\TransformerInterface' not found in X:\X\public\vendor\amiirarsallan\laravel-cksource\src\assets\ckfinder\core\connector\php\vendor\cksource\ckfinder\src\CKSource\CKFinder\Request\Transformer\JsonTransformer.php on line 24**
 
-Go to the path ```X:\X\public\vendor\amiirarsallan\laravel-cksource\src\assets\ckfinder\core\connector\php\vendor\cksource\ckfinder\src\CKSource\CKFinder\Request\Transformer\JsonTransformer.php```
+Go to the path
+
+```X:\X\public\vendor\amiirarsallan\laravel-cksource\src\assets\ckfinder\core\connector\php\vendor\cksource\ckfinder\src\CKSource\CKFinder\Request\Transformer\JsonTransformer.php```
+
 and open ```JsonTransformer.php``` file, on line 24, change the code like this
+
 ```
 class JsonTransformer //implements TransformerInterface
 {
 ```
+
 This will fix the Browse Server dialog.
